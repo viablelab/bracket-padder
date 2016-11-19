@@ -2,7 +2,7 @@
   "name": "bracket-padder",
   "main": "./lib/main",
   "version": "0.1.0",
-  "description": "Convenient padding and closing of brackets",
+  "description": "Convenient padding and closing of brackets.",
   "keywords": [
     "auto",
     "pad",
