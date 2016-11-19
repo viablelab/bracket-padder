@@ -1,0 +1,30 @@
+{
+  "name": "bracket-padder",
+  "main": "./lib/main",
+  "version": "0.1.0",
+  "description": "Convenient padding and closing of brackets",
+  "keywords": [
+    "auto",
+    "pad",
+    "padded",
+    "space",
+    "spaces",
+    "brackets",
+    "curly bracket",
+    "square bracket",
+    "parentheses"
+  ],
+  "author": "Johan West <hello@johanwest.com>",
+  "repository": "https://github.com/mrwest808/bracket-padder",
+  "homepage": "https://github.com/mrwest808/bracket-padder#readme",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "underscore-plus": "^1.6.6"
+  },
+  "devDependencies": {
+    "coffeelint": "^1.16.0"
+  }
+}
