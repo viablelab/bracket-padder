@@ -94,8 +94,12 @@ class BracketPadder
       cursor.traverse([0, count])
     ])
 
+###
+ * @param {Array<String>} characters
+ * @param {String} string
+###
 findLastOccurringCharacter = (characters, string) ->
-  index = string.length
+  index = string.length - 1
 
   while index--
     char = string[index]
