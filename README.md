@@ -1,4 +1,6 @@
 # bracket-padder for Atom
+[![OS X Build Status](https://travis-ci.org/viablelab/bracket-padder.svg?branch=master)](https://travis-ci.org/viablelab/bracket-padder)
+[![Dependency Status](https://david-dm.org/viablelab/bracket-padder.svg)](https://david-dm.org/viablelab/bracket-padder)
 
 A simple package that provides smart padding and closing of bracket pairs: `()` `[]` `{}`
 
