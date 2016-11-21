@@ -18,9 +18,9 @@
     "square bracket",
     "parentheses"
   ],
-  "author": "Johan West <hello@johanwest.com>",
-  "repository": "https://github.com/mrwest808/bracket-padder",
-  "homepage": "https://github.com/mrwest808/bracket-padder#readme",
+  "author": "Johan West <johan.west@viablelab.com>",
+  "repository": "https://github.com/viablelab/bracket-padder",
+  "homepage": "https://github.com/viablelab/bracket-padder#readme",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

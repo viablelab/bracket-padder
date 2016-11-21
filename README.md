@@ -17,4 +17,4 @@ The `|` character represents cursor position.
 `( | )` + <kbd>)</kbd> results in `(  )|` instead of `( )| )`.
 
 ## Troubleshooting
-Report any problems [here](https://github.com/mrwest808/bracket-padder/issues).
+Report any problems [here](https://github.com/viablelab/bracket-padder/issues).
