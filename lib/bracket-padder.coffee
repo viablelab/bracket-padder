@@ -22,7 +22,7 @@ defaultPairs = [
 
 module.exports =
 class BracketPadder
-  constructor: (@editor, editorElement) ->
+  constructor: (@editor) ->
     adviseBefore @editor, 'insertText', @insertText
     adviseBefore @editor, 'backspace', @backspace
 
