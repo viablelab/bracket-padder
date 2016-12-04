@@ -8,6 +8,8 @@ pairsToPad =
   '[': ']'
   '{': '}'
 
+invertedPairsToPad = invert pairsToPad
+
 pairsToUnpad =
   '( ': ' )'
   '[ ': ' ]'
@@ -30,7 +32,7 @@ class BracketPadder
     return true unless text
     return true if options?.select or options?.undo is 'skip'
 
-    closingBracket = invert(pairsToPad)[text]
+    closingBracket = invertedPairsToPad[text]
     return true unless text is ' ' or closingBracket
 
     if @shouldPad(text)
