@@ -1,7 +1,7 @@
 {
   "name": "bracket-padder",
   "main": "./lib/main",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Convenient padding and closing of brackets.",
   "keywords": [
     "atom",
