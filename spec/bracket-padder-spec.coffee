@@ -64,6 +64,22 @@ describe "bracket padding", ->
     testPair '[', ']'
     testPair '{', '}'
 
+  it 'doesn\'t crash when changing closing character on first column', ->
+    test = ->
+      editor.selectAll()
+      editor.delete()
+
+      editor.insertText('{')
+      editor.insertNewline()
+      editor.insertText('}')
+
+      editor.setCursorBufferPosition([1, 1])
+
+      editor.backspace()
+      editor.insertText(']')
+
+    expect(test).not.toThrow()
+
   # it 'autocloses padded (), [], {} pairs', ->
   #   testPair = (opening, closing) ->
   #     editor.selectAll()

@@ -85,6 +85,8 @@ class BracketPadder
     return match and match is character
 
   getPreviousCharacters: (count, cursor) =>
+    return -1 unless cursor.column
+
     return @editor.getTextInBufferRange([
       cursor.traverse([0, -count]),
       cursor,
