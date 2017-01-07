@@ -80,27 +80,74 @@ describe "bracket padding", ->
 
     expect(test).not.toThrow()
 
-  # it 'autocloses padded (), [], {} pairs', ->
-  #   testPair = (opening, closing) ->
-  #     editor.selectAll()
-  #     editor.delete()
-  #
-  #     editor.insertText(opening)
-  #     editor.insertText(' ')
-  #     editor
-  #
-  #     editor.insertText("#{opening} #{closing}")
-  #     editor.setCursorBufferPosition([0, 2])
-  #     editor.insertText(closing)
-  #
-  #     actualText = editor.buffer.getText()
-  #     expectedText = "#{opening} #{closing}"
-  #     expect(actualText).toBe expectedText
-  #
-  #     actualCursorPosition = editor.getCursorBufferPosition().column
-  #     expectedCursorPosition = 4
-  #     expect(actualCursorPosition).toBe expectedCursorPosition
-  #
-  #   testPair '(', ')'
-  #   testPair '[', ']'
-  #   testPair '{', '}'
+  it 'autocloses padded (), [], {} pairs properly', ->
+    reset = ->
+      editor.selectAll()
+      editor.delete()
+
+    testPair = (opening, closing) ->
+      reset()
+
+      testStrings = [
+        'foo: bar'
+        '"foo": "bar"'
+        "'foo': 'bar'"
+        '`foo`: `bar`'
+        '[foo]: [bar]'
+        '{foo}: {bar}'
+        '(foo): (bar)'
+      ]
+
+      testStrings.forEach (str) ->
+        reset()
+
+        text = "#{opening} #{str} #{closing}"
+        editor.insertText(text)
+
+        editor.moveToEndOfLine()
+        editor.moveLeft(2)
+
+        editor.insertText(closing)
+
+        expected = text
+        actual = editor.buffer.getText()
+
+        expect(actual).toBe(expected)
+
+    testPair '(', ')'
+    testPair '[', ']'
+    testPair '{', '}'
+
+  it 'skips autoclosing when cursor is within unclosed quotes', ->
+    reset = ->
+      editor.selectAll()
+      editor.delete()
+
+    testPair = (opening, closing) ->
+      reset()
+
+      testStrings = [
+        '"foo": "bar'
+        "'foo: 'bar'"
+        '`foo`: `bar'
+      ]
+
+      testStrings.forEach (str) ->
+        reset()
+
+        text = "#{opening} #{str} #{closing}"
+        editor.insertText(text)
+
+        editor.moveToEndOfLine()
+        editor.moveLeft(2)
+
+        editor.insertText(closing)
+
+        expected = "#{opening} #{str}#{closing} #{closing}"
+        actual = editor.buffer.getText()
+
+        expect(actual).toBe(expected)
+
+    testPair '(', ')'
+    testPair '[', ']'
+    testPair '{', '}'
