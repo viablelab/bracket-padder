@@ -1,7 +1,7 @@
 {
-  adviseBefore, contains, findLastIndex,
-  first, has, invert, keys,
-} = require 'underscore-plus'
+  adviseBefore, first, invert,
+  compose, last, filter,
+  } = require 'underscore-plus'
 
 pairsToPad =
   '(': ')'
@@ -22,6 +22,9 @@ defaultPairs = [
   '"', "'", '`',
 ]
 
+removeEscapedQuotes =
+  (str) -> str.replace(/(\\"|\\')/g, '')
+
 module.exports =
 class BracketPadder
   constructor: (@editor) ->
@@ -32,15 +35,17 @@ class BracketPadder
     return true unless text
     return true if options?.select or options?.undo is 'skip'
 
-    closingBracket = invertedPairsToPad[text]
-    return true unless text is ' ' or closingBracket
+    openBracket = invertedPairsToPad[text]
+    isClosingBracket = !!openBracket
+
+    return true unless text is ' ' or isClosingBracket
 
     if @shouldPad(text)
       @editor.insertText('  ')
       @editor.moveLeft()
       return false
 
-    if @shouldClosePair(closingBracket)
+    if @shouldClosePair(text, openBracket)
       @editor.moveRight(2)
       return false
 
@@ -70,22 +75,23 @@ class BracketPadder
     match = pairsToPad[previousCharacter]
     return match and nextCharacter is match
 
-  shouldClosePair: (character) =>
+  shouldClosePair: (closeBracket, openBracket) =>
     cursor = @editor.getCursorBufferPosition()
-    previousCharacters = @getPreviousCharacters(cursor.column, cursor)
+    previousCharacters =
+      removeEscapedQuotes @getPreviousCharacters(cursor.column, cursor)
+    nextCharacters =
+      removeEscapedQuotes @getNextCharacters(2, cursor)
 
-    match = findLastOccurringCharacter defaultPairs, previousCharacters
-    return false unless match and match is character
+    return false unless previousCharacters.includes(openBracket)
 
-    nextCharacters = @getNextCharacters(2, cursor)
+    unclosed = getUnclosedPairs(previousCharacters)
+    return false unless last(unclosed) is openBracket
 
     return false unless first(nextCharacters) is ' '
-
-    match = invert(pairsToPad)[nextCharacters.trim()]
-    return match and match is character
+    return true if nextCharacters.trim() is closeBracket
 
   getPreviousCharacters: (count, cursor) =>
-    return -1 unless cursor.column
+    return '' unless cursor.column
 
     return @editor.getTextInBufferRange([
       cursor.traverse([0, -count]),
@@ -99,16 +105,35 @@ class BracketPadder
     ])
 
 ###
- * @param {Array<String>} characters
- * @param {String} string
+ * Filters out characters between `opening` and `closing` characters.
+ * @param  {String} opening
+ * @param  {String} closing
+ * @return {Function}
 ###
-findLastOccurringCharacter = (characters, string) ->
-  index = string.length - 1
+removePairs = (opening, closing) -> (str) ->
+  if not closing
+    closing = opening
 
-  while index--
-    char = string[index]
+  regex = new RegExp("#{opening}([^#{opening}]+(?=#{closing}))#{closing}", 'g')
+  str.replace(regex, '')
 
-    if contains(characters, char)
-      return char
+###
+ * :: String -> String
+###
+removeClosedPairs = compose(
+  removePairs("'"),
+  removePairs('"'),
+  removePairs('`'),
+  removePairs('\\{', '\\}'),
+  removePairs('\\[', '\\]'),
+  removePairs('\\(', '\\)')
+)
 
-  return undefined
+###
+ * Returns any unclosed "bracket pair characters" found within `str`.
+ * @param  {String} str
+ * @return {Array<String>}
+###
+getUnclosedPairs = (str) ->
+  trimmed = removeClosedPairs(str)
+  return filter(trimmed, (char) -> defaultPairs.includes(char))
