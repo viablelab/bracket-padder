@@ -1,14 +1,15 @@
 {
   adviseBefore, first, invert,
   compose, last, filter,
-  } = require 'underscore-plus'
+} = require 'underscore-plus'
 
 pairsToPad =
   '(': ')'
   '[': ']'
   '{': '}'
 
-invertedPairsToPad = invert pairsToPad
+invertedPairsToPad =
+  invert pairsToPad
 
 pairsToUnpad =
   '( ': ' )'
@@ -56,9 +57,7 @@ class BracketPadder
     previousCharacters = @getPreviousCharacters(2, cursor)
     nextCharacters = @getNextCharacters(2, cursor)
 
-    match = pairsToUnpad[previousCharacters]
-
-    return true unless match and nextCharacters is match
+    return true unless pairsToUnpad[previousCharacters] is nextCharacters
 
     @editor.moveRight()
     @editor.backspace()
@@ -72,8 +71,7 @@ class BracketPadder
     previousCharacter = @getPreviousCharacters 1, cursor
     nextCharacter = @getNextCharacters 1, cursor
 
-    match = pairsToPad[previousCharacter]
-    return match and nextCharacter is match
+    return true if pairsToPad[previousCharacter] is nextCharacter
 
   shouldClosePair: (closeBracket, openBracket) =>
     cursor = @editor.getCursorBufferPosition()
