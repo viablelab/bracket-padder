@@ -77,8 +77,7 @@ class BracketPadder
     cursor = @editor.getCursorBufferPosition()
     previousCharacters =
       removeEscapedQuotes @getPreviousCharacters(cursor.column, cursor)
-    nextCharacters =
-      removeEscapedQuotes @getNextCharacters(2, cursor)
+    nextCharacters = @getNextCharacters(2, cursor)
 
     return false unless previousCharacters.includes(openBracket)
 
