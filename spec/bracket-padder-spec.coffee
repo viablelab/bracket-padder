@@ -86,8 +86,6 @@ describe "bracket padding", ->
       editor.delete()
 
     testPair = (opening, closing) ->
-      reset()
-
       testStrings = [
         'foo: bar'
         '"foo": "bar"'
@@ -124,8 +122,6 @@ describe "bracket padding", ->
       editor.delete()
 
     testPair = (opening, closing) ->
-      reset()
-
       testStrings = [
         '"foo": "bar'
         "'foo: 'bar'"
