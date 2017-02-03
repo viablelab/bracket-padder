@@ -5,17 +5,17 @@ describe "bracket padding", ->
 
   beforeEach ->
     waitsForPromise ->
-      atom.workspace.open 'sample.js'
+      atom.workspace.open('sample.js')
 
     waitsForPromise ->
-      atom.packages.activatePackage 'bracket-padder'
+      atom.packages.activatePackage('bracket-padder')
 
     runs ->
       editor = atom.workspace.getActiveTextEditor()
       editorElement = atom.views.getView(editor)
 
   it 'package should be activated', ->
-    actual = atom.packages.isPackageActive 'bracket-padder'
+    actual = atom.packages.isPackageActive('bracket-padder')
     expected = true
 
     expect(actual).toBe expected
@@ -35,11 +35,11 @@ describe "bracket padding", ->
       editor.insertText(' ')
       padded = editor.buffer.getText()
 
-      expect(padded).toBe "#{opening}  #{closing}"
+      expect(padded).toBe("#{opening}  #{closing}")
 
       cursor = editor.getCursorBufferPosition()
 
-      expect(cursor.column).toBe 2
+      expect(cursor.column).toBe(2)
 
     testPair '(', ')'
     testPair '[', ']'
@@ -58,7 +58,7 @@ describe "bracket padding", ->
       actual = editor.buffer.getText()
       expected = opening + closing
 
-      expect(actual).toBe expected
+      expect(actual).toBe(expected)
 
     testPair '(', ')'
     testPair '[', ']'

@@ -68,8 +68,8 @@ class BracketPadder
     return false unless character is ' '
 
     cursor = @editor.getCursorBufferPosition()
-    previousCharacter = @getPreviousCharacters 1, cursor
-    nextCharacter = @getNextCharacters 1, cursor
+    previousCharacter = @getPreviousCharacters(1, cursor)
+    nextCharacter = @getNextCharacters(1, cursor)
 
     return true if pairsToPad[previousCharacter] is nextCharacter
 
