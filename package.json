@@ -20,7 +20,8 @@
     "parentheses",
     "parens",
     "braces",
-    "auto pairs"
+    "auto pairs",
+    "whitespace"
   ],
   "author": "Johan West <johan.west@viablelab.com>",
   "repository": "https://github.com/viablelab/bracket-padder",
