@@ -94,6 +94,7 @@ describe "bracket padding", ->
         '[foo]: [bar]'
         '{foo}: {bar}'
         '(foo): (bar)'
+        '"foo": ""'
       ]
 
       testStrings.forEach (str) ->
