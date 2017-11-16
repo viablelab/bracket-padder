@@ -111,7 +111,7 @@ removePairs = (opening, closing) -> (str) ->
   if not closing
     closing = opening
 
-  regex = new RegExp("#{opening}([^#{opening}]+(?=#{closing}))#{closing}", 'g')
+  regex = new RegExp("#{opening}([^#{opening}]*(?=#{closing}))#{closing}", 'g')
   str.replace(regex, '')
 
 ###
