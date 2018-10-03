@@ -22,3 +22,7 @@ The `|` character represents cursor position.
 Report any problems [here](https://github.com/viablelab/bracket-padder/issues).
 
 ## [Recipes](https://github.com/viablelab/bracket-padder/wiki#recipes)
+
+## Other Implementations
+
+- [VS Code](https://github.com/viablelab/bracket-padder-vscode)
