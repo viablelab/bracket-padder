@@ -1,3 +1,5 @@
+⚠️ NOTE! Not actively maintained due to not currently using the Atom editor.
+
 # bracket-padder for Atom
 [![OS X Build Status](https://travis-ci.org/viablelab/bracket-padder.svg?branch=master)](https://travis-ci.org/viablelab/bracket-padder)
 [![Dependency Status](https://david-dm.org/viablelab/bracket-padder.svg)](https://david-dm.org/viablelab/bracket-padder)
